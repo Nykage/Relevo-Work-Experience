@@ -1,0 +1,252 @@
+<html>
+    <head>
+        <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-firestore.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+
+        <!-- NAVBAR -->
+        <nav class="z-depth-0 navbarclass">
+            <div class="nav-wrapper container" style="width: 100%;">
+            <a href="index.html" class="brand-logo">
+                <img src="img/Logo.png">
+            </a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down" style="margin-right: 20px;">
+                <li class="logged-in">
+                    <a href="admin.html" class="modal-trigger" id="appointments" style="display: none;">Appointments</a>
+                </li>
+                <li class="logged-in">
+                    <a href="#" class="modal-trigger" id="book-service" data-target="modal-service" style="display: none;">Book an Appointment</a>
+                </li>
+                <li class="logged-in">
+                    <a href="#" id="logout" style="display: none;">Logout</a>
+                </li>
+                <li class="logged-out">
+                    <a href="#" class="modal-trigger" id="log-in" data-target="modal-login" style="display: none;">Login</a>
+                </li>
+                <li class="logged-out">
+                    <a href="#" class="modal-trigger" id="sign-up" data-target="modal-signup" style="display: none;">Sign up</a>
+                </li>
+                </span>
+            </ul>
+            </div>
+        </nav>
+
+        <!-- SIGN UP MODAL -->
+        <div id="modal-signup" class="modal">
+            <div class="modal-content">
+            <h4>Sign up</h4><br />
+            <form id="signup-form">
+                <div class="input-field">
+                <input type="email" id="signup-email" required />
+                <label for="signup-email">Email address</label>
+                </div>
+                <div class="input-field">
+                <input type="password" id="signup-password" required />
+                <label for="signup-password">Choose password</label>
+                </div>
+                <button class="btn yellow darken-2 z-depth-0">Sign up</button>
+            </form>
+            </div>
+        </div>
+        
+        <!-- LOGIN MODAL -->
+        <div id="modal-login" class="modal">
+            <div class="modal-content">
+            <h4>Login</h4><br />
+            <form id="login-form">
+                <div class="input-field">
+                <input type="email" id="login-email" required />
+                <label for="login-email">Email address</label>
+                </div>
+                <div class="input-field">
+                <input type="password" id="login-password" required />
+                <label for="login-password">Your password</label>
+                </div>
+                <button class="btn yellow darken-2 z-depth-0">Login</button>
+            </form>
+            </div>
+        </div>
+
+        <!-- SERVICE MODAL -->
+        <div id="modal-service" class="modal">
+            <div class="modal-content">
+            <h4>Appointment</h4><br />
+            <form id="add-service-form">
+                <div class="input-field">
+                <input type="text" name="type" placeholder="e.g. Massage, Dry Needling, etc." required>
+                <label for="type">Service Type</label>
+                </div>
+                <div class="input-field">
+                <input type="text" name="customer" required>
+                <label for="customer">Your E-Mail</label>
+                </div>
+                <div class="input-field">
+                <input type="text" name="month" required>
+                <label for="month">Month</label>
+                </div>
+                <div class="input-field">
+                <input type="text" name="day" required>
+                <label for="day">Day</label>
+                </div>
+                <div class="input-field">
+                <input type="text" name="year" required>
+                <label for="year">Year</label>
+                </div>
+                <div class="input-field">
+                <input type="text" name="time" placeholder="e.g. 14:30" required>
+                <label for="time">Time</label>
+                </div>
+                <button class="btn yellow darken-2 z-depth-0">Add Appointment</button>
+            </form>
+            </div>
+        </div>
+
+        <div class="content" style="background-color: white; margin-top: 10px; margin-bottom: 10px;">
+            <table class="hide-on-med-and-down">
+                <tr>
+                    <td><img src="http://www.faskiavaha.fi/wp-content/uploads/2019/12/Faskiavaha-150ml.png" alt="faskiavaha" style="width: 400px;"></td>
+                    <td style="color: black; text-align: left;">
+                        <p>
+                            <b>Faskiavaha</b> is a completely natural handmade <b>massage wax</b>  for and massages and other sorts of therapy. Faskiavaha is free of artificial substances. One can of Faskiavaha contains 140 grams (150 ml) of the massage wax.
+                        </p>
+                        <h4 style="color: orange;"><b>Faskiavaha contains:</b></h4>
+                        <ul>
+                            <li>Organic Sunflower Oil</li>
+                            <li>Almond Oil</li>
+                            <li>Beeswax</li>
+                            <li>Organic Jojoba Oil</li>
+                            <li>Vitamin E</li>
+                        </ul>
+                        <p>
+                            The product naturally contains vitamins B, E and K.
+                        </p>
+                        <p>
+                            Developed and manufactured in Virrat.
+                        </p>
+                        <h4 style="color: orange;"><b>19,90 €</b></h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: black;">
+                        <h4 style="color: orange;"><b>Faskiavaha – An unmatched all-natural massage wax</b></h4>
+                        <p>
+                            <b>Faskiavaha</b> is a completely natural handmade <b>massage wax</b>  for and massages and other sorts of therapy. Faskiavaha is free of artificial substances. One can of Faskiavaha contains 140 grams (150 ml) of the massage wax.
+                        </p>
+                        <p>
+                            The wax is designed for professional use but it is also suitable for private massages at home. Even a small amount of wax gives you a warm, frictional and very good feel. If you want less friction, you can apply more wax. Thanks to its friction, the wax is excellent for handling superficial and deep tissues. You don’t need to continuously add wax to the same area during the massage, which is typical for example with massage oils.
+                        </p>
+                        <p>
+                            If you wish, you can leave the wax on your skin after the massage and it won’t even leave your skin feeling dirty or greasy. Even after washing repeatedly, the wax will keep your skin and hands moisturized. The beeswax inside Faskiavaha makes this possible by creating a membranous structure on the skin.
+                        </p>
+                        <p>
+                            The product is designed to be used by massage therapists, physiotherapists, osteopaths, naprapaths and chiropractors. In addition to applying the wax with your hands, the wax can also be used as a medium for massage instruments (including IASTM , Graston ™ and Gua Sha).
+                        </p>
+                        <p>
+                            The package is equipped with a double wall and an intermediate lid, which prevents UV light from getting inside. Thus, the shelf life of Faskiavaha is better than the shelf life of other similar products, which means that it’s still usable for six months after opening it. Faskiavaha includes a serving spoon that makes use of the wax more hygienic and easier to dispense.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            <table class="hide-on-large-only">
+                <tr>
+                    <td><img src="http://www.faskiavaha.fi/wp-content/uploads/2019/12/Faskiavaha-150ml.png" alt="faskiavaha" style="width: 400px;"></td>
+                </tr>
+                <tr>
+                    <td style="color: black;">
+                        <h4 style="color: orange;"><b>Faskiavaha – An unmatched all-natural massage wax</b></h4>
+                        <p>
+                            <b>Faskiavaha</b> is a completely natural handmade <b>massage wax</b>  for and massages and other sorts of therapy. Faskiavaha is free of artificial substances. One can of Faskiavaha contains 140 grams (150 ml) of the massage wax.
+                        </p>
+                        <p>
+                            The wax is designed for professional use but it is also suitable for private massages at home. Even a small amount of wax gives you a warm, frictional and very good feel. If you want less friction, you can apply more wax. Thanks to its friction, the wax is excellent for handling superficial and deep tissues. You don’t need to continuously add wax to the same area during the massage, which is typical for example with massage oils.
+                        </p>
+                        <p>
+                            If you wish, you can leave the wax on your skin after the massage and it won’t even leave your skin feeling dirty or greasy. Even after washing repeatedly, the wax will keep your skin and hands moisturized. The beeswax inside Faskiavaha makes this possible by creating a membranous structure on the skin.
+                        </p>
+                        <p>
+                            The product is designed to be used by massage therapists, physiotherapists, osteopaths, naprapaths and chiropractors. In addition to applying the wax with your hands, the wax can also be used as a medium for massage instruments (including IASTM , Graston ™ and Gua Sha).
+                        </p>
+                        <p>
+                            The package is equipped with a double wall and an intermediate lid, which prevents UV light from getting inside. Thus, the shelf life of Faskiavaha is better than the shelf life of other similar products, which means that it’s still usable for six months after opening it. Faskiavaha includes a serving spoon that makes use of the wax more hygienic and easier to dispense.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: black;">
+                        <h4 style="color: orange;"><b>Faskiavaha contains:</b></h4>
+                        <ul>
+                            <li>Organic Sunflower Oil</li>
+                            <li>Almond Oil</li>
+                            <li>Beeswax</li>
+                            <li>Organic Jojoba Oil</li>
+                            <li>Vitamin E</li>
+                        </ul>
+                        <p>
+                            The product naturally contains vitamins B, E and K.
+                        </p>
+                        <p>
+                            Developed and manufactured in Virrat.
+                        </p>
+                        <h4 style="color: orange;"><b>19,90 €</b></h4>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <footer class="page-footer" style="background-color: darkorange;">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h4 class="white-text">Contact</h4>
+                <ul>
+                    <li><h6 class="grey-text text-lighten-3"><b>Phone Number</b></h6></li>
+                    <li><span class="grey-text text-lighten-3">044 0735386</span></li>
+                </ul>
+                <ul>
+                    <li><h6 class="grey-text text-lighten-3"><b>E-Mail</b></h6></li>
+                    <li><span class="grey-text text-lighten-3">relevo@relevo.fi</span></li>
+                </ul>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h4 class="white-text">About</h4>
+                <ul>
+                  <li><span class="grey-text text-lighten-3">Virtaintie 36,</span></li>
+                  <li><span class="grey-text text-lighten-3">34800 Virrat,</span></li>
+                  <li><span class="grey-text text-lighten-3">Finland</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2019 Copyright Relevo
+            </div>
+          </div>
+        </footer>
+
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyBtmLezjo_ZpmFyQPeXPyaO_L_R9WabvqI",
+                authDomain: "piia-relevo.firebaseapp.com",
+                databaseURL: "https://piia-relevo.firebaseio.com",
+                projectId: "piia-relevo",
+                storageBucket: "piia-relevo.appspot.com",
+                messagingSenderId: "346373794029",
+                appId: "1:346373794029:web:1b608fff5a6514c027c4e4"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+            const auth = firebase.auth();
+        </script>
+        <script src="scripts/auth.js"></script>
+        <script src="scripts/index.js"></script>
+        <script src="scripts/app.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </body>
+</html>
